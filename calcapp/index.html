@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+  function Calculator() {
+    const [num1, setNum1] = React.useState('');
+    const [num2, setNum2] = React.useState('');
+    const [operation, setOperation] = React.useState('+');
+    const [result, setResult] = React.useState('');
+
+    const handleNum1Change = (e) => {
+      setNum1(e.target.value);
+    };
+
+    const handleNum2Change = (e) => {
+      setNum2(e.target.value);
+    };
+
+    const handleOperationChange = (e) => {
+      setOperation(e.target.value);
+    };
+
+    const calculate = () => {
+      let answer;
+      switch (operation) {
+        case '+':
+          answer = parseFloat(num1) + parseFloat(num2);
+          break;
+        case '-':
+          answer = parseFloat(num1) - parseFloat(num2);
+          break;
+        case '*':
+          answer = parseFloat(num1) * parseFloat(num2);
+          break;
+        case '/':
+          answer = parseFloat(num1) / parseFloat(num2);
+          break;
+        default:
+          answer = 'Invalid operation';
+      }
+      setResult(answer);
+    };
+
+    return (
+      <div>
+        <h1>Calculator</h1>
+        <input type="number" value={num1} onChange={handleNum1Change} />
+        <select value={operation} onChange={handleOperationChange}>
+          <option value="+">+</option>
+          <option value="-">-</option>
+          <option value="*">*</option>
+          <option value="/">/</option>
+        </select>
+        <input type="number" value={num2} onChange={handleNum2Change} />
+        <button onClick={calculate}>Calculate</button>
+        <h2>Result: {result}</h2>
+      </div>
+    );
+  }
+
+  ReactDOM.render(
+    <div>
+      <Calculator />
+    </div>,
+    document.getElementById('root')
+  );
+</script>
+
+</body>
+</html>
