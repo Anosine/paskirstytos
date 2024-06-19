@@ -1,0 +1,97 @@
+global:
+  scrape_interval: 21s
+  evaluation_interval: 1m
+scrape_configs:
+- job_name: calcapp
+  scrape_interval: 3s
+  dns_sd_configs:
+  - names:
+    - 'calcapp'
+    type: A
+    port: 8080
+
+- job_name: nginx
+  scrape_interval: 3s
+  # static_configs:
+  #     - targets: ['localhost']
+  dns_sd_configs:
+  - names:
+    - 'nginx'
+    type: A
+    port: 80  
+- job_name: 'prometheus'
+  # Override the global default and scrape targets from this job every 5 seconds.
+  scrape_interval: 5s
+  static_configs:
+    - targets: ['localhost:9090']
+# global:
+#   scrape_interval:     3s # By default, scrape targets every 15 seconds.
+# scrape_configs:
+#   # ...
+#   - job_name: 'calcapp'
+#     dns_sd_configs:
+#       - names:
+#           - 'tasks.calcapp'
+#         type: 'A'
+#         port: 80
+#     metrics_path: '/actuator/prometheus'    
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  # external_labels:
+  #  monitor: 'codelab-monitor'
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+# scrape_configs:
+#   # # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+#   # - job_name: 'prometheus'
+#   #   # Override the global default and scrape targets from this job every 5 seconds.
+#   #   scrape_interval: 5s
+#   #   static_configs:
+#   #     - targets: ['localhost:9090']
+#   # - job_name: 'nginx'
+#   #   # Override the global default and scrape targets from this job every 5 seconds.
+#   #   scrape_interval: 5s
+#   #   static_configs:
+#   #     - targets: ['nginx:80']
+#   # - job_name: 'app'
+#   #   # Override the global default and scrape targets from this job every 5 seconds.
+#   #   scrape_interval: 5s
+#   #   static_configs:
+#   #     - targets: ['app']
+#   - job_name: 'prometheus'
+#     scrape_interval: 5s
+#     static_configs:
+#       - targets: ['localhost:9090']
+
+ 
+
+  # # Scrape the app service
+  # - job_name: 'app'
+  #   # scrape_interval: 5s
+  #   dns_sd_configs:
+  #     - names:
+  #         - 'tasks.calcapp'
+  #       type: 'A'
+  #       port: 80
+
+  # # Scrape the Nginx service
+  # - job_name: 'nginx'
+  #   scrape_interval: 5s
+  #   static_configs:
+  #     - targets: ['tasks.nginx']
+  #   metrics_path: /metrics # Ensure you have an exporter for nginx metrics
+
+
+
+
+
+  # Example job for node_exporter
+  # - job_name: 'node_exporter'
+  #   static_configs:
+  #     - targets: ['node_exporter:9100']
+
+  # Example job for cadvisor
+  # - job_name: 'cadvisor'
+  #   static_configs:
+  #     - targets: ['cadvisor:8080']
